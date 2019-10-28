@@ -1,25 +1,27 @@
 package com.datastructure.array;
 
+
 /**
- * 数组类，支持简单的增删改查功能，初始化固定大小，只支持int类型的元素
+ *  中级数组类，支持简单的增删改查功能，初始化固定大小，只支持int类型的元素
+ *  增加支持泛型
  */
-public class Array1 {
-    private int[] data;
+public class MidArray<E> {
+    private E[] data;
     private int size;
 
     /**
      * 有参构造函数
      * @param capacity 数组容积
      */
-    public Array1(int capacity){
-        data = new int[capacity];
+    public MidArray(int capacity){
+        data = (E[])new Object[capacity];
         size = 0;
     }
 
     /**
      * 无参构造函数
      */
-    public Array1(){
+    public MidArray(){
         this(10);
     }
 
@@ -44,7 +46,7 @@ public class Array1 {
      * @param index 指定元素位置
      * @param e 添加的内容
      */
-    public void add(int index, int e){
+    public void add(int index, E e){
         if (size >= data.length){
             throw new IllegalArgumentException("添加失败，数组容积已满");
         }
@@ -62,7 +64,7 @@ public class Array1 {
      * 向数组头部添加一个元素
      * @param e 添加的元素
      */
-    public void addFirst(int e){
+    public void addFirst(E e){
         this.add(0, e);
     }
 
@@ -70,7 +72,7 @@ public class Array1 {
      * 向数组尾部添加一个元素
      * @param e 要添加的元素
      */
-    public void addLast(int e){
+    public void addLast(E e){
         this.add(size, e);
     }
 
@@ -79,9 +81,9 @@ public class Array1 {
      * @param e 查询的元素
      * @return boolean
      */
-    public boolean contains(int e){
+    public boolean contains(E e){
         for (int i = 0; i < size; i++){
-            if (data[i] == e){
+            if (data[i].equals(e)){
                 return true;
             }
         }
@@ -93,9 +95,9 @@ public class Array1 {
      * @param e
      * @return
      */
-    public int find(int e){
+    public int find(E e){
         for (int i = 0; i < size; i++){
-            if (data[i] == e){
+            if (data[i].equals(e)){
                 return i;
             }
         }
@@ -107,15 +109,16 @@ public class Array1 {
      * @param index 指定位置
      * @return
      */
-    public int remove(int index){
+    public E remove(int index){
         if (index < 0 || index >= size){
             throw new IllegalArgumentException("Remove failed ! Index is illegal");
         }
-        int res = data[index];
+        E res = data[index];
         for (int i = index + 1; i < size; i++){
             data[i - 1] = data[i];
         }
         size--;
+        data[size] = null;
         return res;
     }
 
@@ -123,7 +126,7 @@ public class Array1 {
      * 删除数组中的第一个元素
      * @return
      */
-    public int removeFirst(){
+    public E removeFirst(){
         return this.remove(0);
     }
 
@@ -131,7 +134,7 @@ public class Array1 {
      * 删除数组中指定元素
      * @param e
      */
-    public void removeElement(int e){
+    public void removeElement(E e){
         int index = this.find(e);
         if (index != -1){
             remove(index);
@@ -140,7 +143,7 @@ public class Array1 {
 
     @Override
     public String toString(){
-        StringBuilder res = new StringBuilder(String.format("Array1 size:%d  capacity:%d\n", size, data.length));
+        StringBuilder res = new StringBuilder(String.format("PriArray size:%d  capacity:%d\n", size, data.length));
         res.append("[");
         for (int i = 0; i < size; i++){
             res.append(data[i]);
@@ -157,7 +160,7 @@ public class Array1 {
      * @param index 指定位置
      * @return
      */
-    public int get(int index){
+    public E get(int index){
         if (index < 0 || index >= size){
             throw new IllegalArgumentException("Get failed ! Index is illegal");
         }
@@ -169,7 +172,7 @@ public class Array1 {
      * @param index 指定位置的元素
      * @param e 更新的内容
      */
-    public void set(int index, int e){
+    public void set(int index, E e){
         if (index < 0 || index >= size){
             throw new IllegalArgumentException("Set failed! Index is illegal");
         }

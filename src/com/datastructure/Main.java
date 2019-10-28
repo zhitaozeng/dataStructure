@@ -1,16 +1,20 @@
 package com.datastructure;
 
-import com.datastructure.array.Array1;
+import com.datastructure.array.MidArray;
+import com.datastructure.array.PriArray;
+import com.datastructure.array.SenArray;
 
 public class Main {
 
 
     public static void main(String[] args){
 
-        Array1 array = new Array1(20);
-        for (int i = 0; i < 20; i++){
+        SenArray<Integer> array = new SenArray<>();
+        for (int i = 0; i < 10; i++){
             array.addLast(i);
         }
+        array.addLast(5);
+        array.addFirst(5);
         System.out.println(array);
         array.set(1, 5);
         System.out.println(array);
